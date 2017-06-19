@@ -1,0 +1,18 @@
+- name: aeHO
+  lightsail:
+    state: present
+    name: 9clone-backend
+    region: us-east-1
+    zone: us-east-1a
+    blueprint_id: ubuntu_16_04
+    bundle_id: nano_1_0
+    key_pair_name: keypair
+  register: backend_instance
+
+- name: Add instance to webservers
+  add_host:
+    name: "{{ backend_instance.instance.public_ip_address }}"
+    groups: webservers
+
+- debug: msg="groups{{groups}}"
+  run_once: true
