@@ -1,6 +1,14 @@
 - hosts: localhost
   name: Provision lightsail for backend and devops, s3 bucket, route53, cloudfront
-  connection: local
-  become: false
   roles:
     - provision_backend
+
+- hosts: webservers
+  gather_facts: no
+  name: Install rails, postgresql, configure users
+  remote_user: ubuntu
+  pre_tasks:
+    - name: 'inst py2'
+      raw: sudo apt-get update && sudo apt-get -y install python-simplejson
+  roles:
+    - install_backend

@@ -1,2 +1,4 @@
 .ash_history
 .aws
+*.retry
+ssh_keys/*
