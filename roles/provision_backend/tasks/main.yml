@@ -1,4 +1,4 @@
-- name: aeHO
+- name: Provision lightsail instance
   lightsail:
     state: present
     name: 9clone-backend

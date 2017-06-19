@@ -2,21 +2,5 @@
   name: Provision lightsail for backend and devops, s3 bucket, route53, cloudfront
   connection: local
   become: false
-  # vars:
-    #portal_install_dir: /appl/opentext/Portal/PortalMgmt
-    # portal:
-    #   db:
-    #     host: wemportalaws
-    #     port: 1521
-    #     user: PORTALMGMT
-    #     password: PORTALMGMT
-    #     sid_or_service: /ORCL
-    # app:
-    #   db:
-    #     host: wemportalaws
-    #     port: 1521
-    #     user: TRANSACIONAL
-    #     password: transacional
-    #     sid_or_service: /ORCL
   roles:
     - provision_backend
