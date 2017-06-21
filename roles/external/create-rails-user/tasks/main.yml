@@ -1,0 +1,26 @@
+- name: create {{ rails_user }} user
+  user:
+    name: "{{ rails_user }}"
+    comment: "rails user"
+    generate_ssh_key: no
+    state: present
+    shell: /bin/bash
+
+# - name: authorize my SSH key to access {{ rails_user }}
+  # authorized_key: user={{ rails_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: create .ssh dir
+  file: name=~{{ rails_user }}/.ssh state=directory owner={{ rails_user }} group={{ rails_user }} mode=2755
+
+- name: copy ssh_config so that github doesn't do host verification
+  action: copy src=ssh_config dest=~{{ rails_user }}/.ssh/config owner={{ rails_user }} group={{ rails_user }}
+
+# - name: add {{ rails_user }} to sudoers
+  # lineinfile: "dest=/etc/sudoers state=present line='{{ rails_user }} ALL=(ALL:ALL) ALL'"
+
+- name: create www-data group
+  group: name=www-data state=present
+
+- name: create apps directory owned by {{ rails_user }}:www-data with setgid bit
+  # note: 2755 => 2=setgid, 7=owner rwx, 5=group rx, 5=other rx
+  file: name=~{{ rails_user }}/apps state=directory owner={{ rails_user }} group=www-data mode=2755

@@ -13,6 +13,3 @@
   add_host:
     name: "{{ backend_instance.instance.public_ip_address }}"
     groups: webservers
-
-- debug: msg="groups{{groups}}"
-  run_once: true
